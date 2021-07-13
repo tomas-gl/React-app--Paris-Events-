@@ -1,4 +1,4 @@
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import { Card, Button, Row, Col } from "react-bootstrap";
 
 function Accueil() {
   return (
