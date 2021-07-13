@@ -1,7 +1,5 @@
-function Recherche(){
-    return(
-        <div>Page Recherche</div>
-    )
+function Recherche() {
+  return <div>Page Recherche</div>;
 }
 
-export default Recherche
+export default Recherche;

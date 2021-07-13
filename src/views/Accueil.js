@@ -1,8 +1,5 @@
-function Accueil(){
-    return(
-        <div>Page Accueil</div>
-    )
+function Accueil() {
+  return <div>Page Accueil</div>;
 }
 
-export default Accueil
-
+export default Accueil;

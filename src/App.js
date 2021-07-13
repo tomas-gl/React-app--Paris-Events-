@@ -1,11 +1,11 @@
 // import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-import {BrowserRouter, Route, NavLink} from 'react-router-dom';
+import { BrowserRouter, Route, NavLink } from "react-router-dom";
 
-import Accueil from './views/Accueil';
-import Recherche from './views/Recherche';
-import Favoris from './views/Favoris';
+import Accueil from "./views/Accueil";
+import Recherche from "./views/Recherche";
+import Favoris from "./views/Favoris";
 
 function App() {
   return (
@@ -13,9 +13,15 @@ function App() {
       <div className="App">
         <header>
           <h1>Mon application</h1>
-          <NavLink to="/" exact>Accueil</NavLink>
-          <NavLink to="/recherche"exact>Recherche</NavLink>
-          <NavLink to="/favoris"exact>Favoris</NavLink>
+          <NavLink to="/" exact>
+            Accueil
+          </NavLink>
+          <NavLink to="/recherche" exact>
+            Recherche
+          </NavLink>
+          <NavLink to="/favoris" exact>
+            Favoris
+          </NavLink>
         </header>
 
         {/* Accueil */}
@@ -26,8 +32,6 @@ function App() {
 
         {/* Favoris */}
         <Route path="/favoris" component={Favoris} exact />
-
-
       </div>
     </BrowserRouter>
   );

@@ -1,7 +1,5 @@
-function Accueil(){
-    return(
-        <div>Page Favoris</div>
-    )
+function Favoris() {
+  return <div>Page Favoris</div>;
 }
 
-export default Accueil
+export default Favoris;
