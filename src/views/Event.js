@@ -2,10 +2,12 @@
 import { useState, useEffect } from "react";
 
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function Event() {
+  const { id } = useParams();
   const url =
-    "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/08de0bed488e150320eeef8e86b3e5502e33cd2b";
+    `https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/${id}`;
   const [event, setEvent] = useState(null);
 
   let content = null;
@@ -21,8 +23,7 @@ function Event() {
   if (event) {
     return (
       <div>
-        <h1>{event.record.fields.title}</h1>
-        <h1>un event</h1>
+        
       </div>
     );
   }

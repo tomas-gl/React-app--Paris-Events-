@@ -19,18 +19,9 @@ import { Navbar } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 
 function App() {
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const res = await fetch(
-        "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?search=danse&sort=title&?sort=-date_start&rows=15"
-      );
-      const data = await res.json();
+  const [setEvents] = useState([]);
 
-      console.log(data);
-    };
 
-    fetchTasks();
-  }, []);
 
   return (
     <BrowserRouter>
@@ -52,7 +43,7 @@ function App() {
                 to="/recherche"
                 exact
               >
-                Recherche
+                Liste des événements
               </NavLink>
               <NavLink
                 className="nav-link"
