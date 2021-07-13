@@ -11,6 +11,7 @@ import { BrowserRouter, Route, NavLink } from "react-router-dom";
 import Accueil from "./views/Accueil";
 import Recherche from "./views/Recherche";
 import Favoris from "./views/Favoris";
+import Event from "./views/Event";
 
 // Bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -66,6 +67,9 @@ function App() {
 
           {/* Accueil */}
           <Route path="/" component={Accueil} exact />
+
+          {/* Event */}
+          <Route path="/event/:id" component={Event} exact />
 
           {/* Recherche */}
           <Route path="/recherche" component={Recherche} exact />
