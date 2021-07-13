@@ -12,14 +12,13 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <header>
-          <h1>Mon application</h1>
-          <NavLink to="/" exact>
+          <NavLink className="nav-link" to="/" exact>
             Accueil
           </NavLink>
-          <NavLink to="/recherche" exact>
+          <NavLink className="nav-link" to="/recherche" exact>
             Recherche
           </NavLink>
-          <NavLink to="/favoris" exact>
+          <NavLink className="nav-link" to="/favoris" exact>
             Favoris
           </NavLink>
         </header>
