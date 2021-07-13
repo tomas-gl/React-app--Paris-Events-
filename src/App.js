@@ -21,8 +21,6 @@ import { Container } from "react-bootstrap";
 function App() {
   const [setEvents] = useState([]);
 
-
-
   return (
     <BrowserRouter>
       <div className="App">

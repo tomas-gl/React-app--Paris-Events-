@@ -6,7 +6,8 @@ import { BrowserRouter, Route, NavLink } from "react-router-dom";
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
+import { FaHeart } from "react-icons/fa/";
 
 const Accueil = (props) => {
   const { id } = useParams();
@@ -28,19 +29,21 @@ const Accueil = (props) => {
   if (event) {
     return (
       <>
-        <h1>Bienvenue sur Paris Events</h1>
-        <p>
-          L'application qui permet de rechercher en direct les prochains
-          événements Parisiens
-        </p>
-        <hr />
-        <div className="text-left">
-          <h2>Actualité</h2>
-          <p>Le dernier événement publié :</p>
-        </div>
         <Row>
+          <Col xs={12}>
+            <h1>Bienvenue sur Paris Events</h1>
+            <p>
+              L'application qui permet de rechercher en direct les prochains
+              événements Parisiens
+            </p>
+            <hr />
+            <div className="text-left">
+              <h2>Actualité</h2>
+              <p>Le dernier événement publié :</p>
+            </div>
+          </Col>
           <Col lg={3} md={6} xs={12} className="mt-3">
-            <NavLink to={'event/' + event.records[0].record.id}>
+            <NavLink to={"event/" + event.records[0].record.id}>
               <Card>
                 <Card.Img
                   variant="top"
@@ -55,9 +58,11 @@ const Accueil = (props) => {
                     {event.records[0].record.fields.date_end}
                   </Card.Text>
                   <Card.Text>
-                    {event.records[0].record.fields.description}
+                    {event.records[0].record.fields.lead_text}
                   </Card.Text>
-                  <Button variant="info">Info</Button>
+                  <Button variant="outline-danger">
+                    <FaHeart /> Sauvegarder
+                  </Button>
                 </Card.Body>
               </Card>
             </NavLink>
@@ -67,7 +72,11 @@ const Accueil = (props) => {
     );
   }
 
-  return <div></div>;
+  return (
+    <Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+  );
 };
 
 export default Accueil;
