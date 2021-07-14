@@ -1,35 +1,10 @@
-// React import
-import { useState, useEffect } from "react";
-
 // Router-dom import
-import { BrowserRouter, Route, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import axios from "axios";
-import { useParams } from "react-router-dom";
 import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
 
 const Accueil = ({ event }) => {
-  // const [event, setEvent] = useState(null);
-  // let eventDetails;
-  // const { id } = useParams();
-  // const url =
-  //   "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?search=danse&sort=title&?sort=-date_start&rows=15";
-  // const [event, setEvent] = useState(null);
-  // const eventDetails = props.event.records[0].record.fields;
-
-  // Récupération des données
-  // useEffect(() => {
-  //   axios.get(url).then((response) => {
-  //     setEvent(response.data);
-  //   });
-  // }, [url]);
-  // if (event) {
-  //   console.log(event.records[0].record);
-  // }
-  // let eventDetails;
-  // eventDetails = event.eventDetails.records[0].record.id;
-
   if (event) {
     console.log(event);
   }
@@ -51,7 +26,12 @@ const Accueil = ({ event }) => {
             </div>
           </Col>
           <Col lg={3} md={6} xs={12} className="mt-3">
-            <NavLink to={"event/" + event.id}>
+            <Link
+              to={{
+                pathname: `/event/${event.id}`,
+                state: { eventDetails: event },
+              }}
+            >
               <Card>
                 <Card.Img variant="top" src={event.fields.cover_url} />
                 <Card.Body>
@@ -65,7 +45,7 @@ const Accueil = ({ event }) => {
                   </Button>
                 </Card.Body>
               </Card>
-            </NavLink>
+            </Link>
           </Col>
         </Row>
       </>

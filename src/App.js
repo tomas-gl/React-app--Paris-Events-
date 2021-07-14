@@ -22,11 +22,9 @@ import { Navbar } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 
 function App() {
-  const [setEvents] = useState([]);
   const url =
     "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?search=danse&sort=title&?sort=-date_start&rows=15";
   const [event, setEvent] = useState(null);
-  // const eventDetails = props.event.records[0].record.fields;
   let eventDetails;
 
   // Récupération des données
@@ -36,7 +34,6 @@ function App() {
     });
   }, [url]);
   if (event) {
-    console.log(event.records[0].record);
     eventDetails = event.records[0].record;
   }
 
@@ -79,7 +76,9 @@ function App() {
           </Route>
 
           {/* Event */}
-          <Route path="/event/:id" component={Event} exact />
+          <Route path="/event/:id" component={Event} exact>
+            <Event event={eventDetails}></Event>
+          </Route>
 
           {/* Recherche */}
           <Route path="/recherche" component={Recherche} exact />
