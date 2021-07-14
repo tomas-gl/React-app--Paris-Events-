@@ -36,7 +36,7 @@ function Event() {
             <p>{event.record.fields.lead_text}</p>
             <p>{event.record.fields.description}</p>
           </Col>
-          <Col lg={4} xs={12} className="mt-3 p-4 right-block text-left">
+          <Col lg={4} xs={12} className="mt-3 mt-lg-0 p-4 right-block text-left">
             <Button className="d-block mb-4" variant="outline-danger">
               <FaHeart /> Sauvegarder
             </Button>
@@ -96,7 +96,6 @@ function Event() {
 
   return (
     <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
     </Spinner>
   );
 }

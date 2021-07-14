@@ -9,21 +9,29 @@ import { useParams } from "react-router-dom";
 import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
 
-const Accueil = (props) => {
-  const { id } = useParams();
-  const url =
-    "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?search=danse&sort=title&?sort=-date_start&rows=15";
-  const [event, setEvent] = useState(null);
+const Accueil = ({ event }) => {
+  // const [event, setEvent] = useState(null);
+  // let eventDetails;
+  // const { id } = useParams();
+  // const url =
+  //   "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?search=danse&sort=title&?sort=-date_start&rows=15";
+  // const [event, setEvent] = useState(null);
   // const eventDetails = props.event.records[0].record.fields;
 
   // Récupération des données
-  useEffect(() => {
-    axios.get(url).then((response) => {
-      setEvent(response.data);
-    });
-  }, [url]);
+  // useEffect(() => {
+  //   axios.get(url).then((response) => {
+  //     setEvent(response.data);
+  //   });
+  // }, [url]);
+  // if (event) {
+  //   console.log(event.records[0].record);
+  // }
+  // let eventDetails;
+  // eventDetails = event.eventDetails.records[0].record.id;
+
   if (event) {
-    console.log(event.records[0].record);
+    console.log(event);
   }
 
   if (event) {
@@ -43,23 +51,15 @@ const Accueil = (props) => {
             </div>
           </Col>
           <Col lg={3} md={6} xs={12} className="mt-3">
-            <NavLink to={"event/" + event.records[0].record.id}>
+            <NavLink to={"event/" + event.id}>
               <Card>
-                <Card.Img
-                  variant="top"
-                  src={event.records[0].record.fields.cover_url}
-                />
+                <Card.Img variant="top" src={event.fields.cover_url} />
                 <Card.Body>
-                  <Card.Title>
-                    {event.records[0].record.fields.title}
-                  </Card.Title>
+                  <Card.Title>{event.fields.title}</Card.Title>
                   <Card.Text>
-                    {event.records[0].record.fields.date_start}{" "}
-                    {event.records[0].record.fields.date_end}
+                    {event.fields.date_start} {event.fields.date_end}
                   </Card.Text>
-                  <Card.Text>
-                    {event.records[0].record.fields.lead_text}
-                  </Card.Text>
+                  <Card.Text>{event.fields.lead_text}</Card.Text>
                   <Button variant="outline-danger">
                     <FaHeart /> Sauvegarder
                   </Button>
@@ -72,11 +72,7 @@ const Accueil = (props) => {
     );
   }
 
-  return (
-    <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>
-  );
+  return <Spinner animation="border" role="status"></Spinner>;
 };
 
 export default Accueil;

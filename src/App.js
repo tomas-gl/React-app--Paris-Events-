@@ -5,7 +5,10 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 // Router-dom import
-import { BrowserRouter, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, NavLink, Link } from "react-router-dom";
+
+// Axios import
+import axios from "axios";
 
 // Views imports
 import Accueil from "./views/Accueil";
@@ -20,6 +23,22 @@ import { Container } from "react-bootstrap";
 
 function App() {
   const [setEvents] = useState([]);
+  const url =
+    "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?search=danse&sort=title&?sort=-date_start&rows=15";
+  const [event, setEvent] = useState(null);
+  // const eventDetails = props.event.records[0].record.fields;
+  let eventDetails;
+
+  // Récupération des données
+  useEffect(() => {
+    axios.get(url).then((response) => {
+      setEvent(response.data);
+    });
+  }, [url]);
+  if (event) {
+    console.log(event.records[0].record);
+    eventDetails = event.records[0].record;
+  }
 
   return (
     <BrowserRouter>
@@ -55,7 +74,9 @@ function App() {
           </header>
 
           {/* Accueil */}
-          <Route path="/" component={Accueil} exact />
+          <Route path="/" component={Accueil} exact>
+            <Accueil event={eventDetails}></Accueil>
+          </Route>
 
           {/* Event */}
           <Route path="/event/:id" component={Event} exact />
