@@ -25,7 +25,8 @@ function App() {
   const url =
     "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?search=danse&sort=title&?sort=-date_start&rows=15";
   const [event, setEvent] = useState(null);
-  let eventDetails;
+  let eventRecent;
+  let events;
 
   // Récupération des données
   useEffect(() => {
@@ -34,7 +35,8 @@ function App() {
     });
   }, [url]);
   if (event) {
-    eventDetails = event.records[0].record;
+    eventRecent = event.records[0].record;
+    events = event.records;
   }
 
   return (
@@ -72,16 +74,16 @@ function App() {
 
           {/* Accueil */}
           <Route path="/" component={Accueil} exact>
-            <Accueil event={eventDetails}></Accueil>
+            <Accueil event={eventRecent}></Accueil>
           </Route>
 
           {/* Event */}
-          <Route path="/event/:id" component={Event} exact>
-            <Event event={eventDetails}></Event>
-          </Route>
+          <Route path="/event/:id" component={Event} exact/>
 
           {/* Recherche */}
-          <Route path="/recherche" component={Recherche} exact />
+          <Route path="/recherche" component={Recherche} exact>
+            <Recherche event={events}></Recherche>
+          </Route>
 
           {/* Favoris */}
           <Route path="/favoris" component={Favoris} exact />

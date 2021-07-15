@@ -29,7 +29,6 @@ const Accueil = ({ event }) => {
             <Link
               to={{
                 pathname: `/event/${event.id}`,
-                state: { eventDetails: event },
               }}
             >
               <Card>
