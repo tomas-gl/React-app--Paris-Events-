@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
 import Parser from 'html-react-parser';
+import DayJS from "react-dayjs";
 
 const Accueil = ({ event }) => {
   if (event) {
@@ -31,13 +32,15 @@ const Accueil = ({ event }) => {
               to={{
                 pathname: `/event/${event.id}`,
               }}
+              className="event-link"
             >
               <Card>
                 <Card.Img variant="top" src={event.fields.cover_url} />
                 <Card.Body>
                   <Card.Title>{Parser(event.fields.title)}</Card.Title>
                   <Card.Text>
-                  {Parser(event.fields.date_start)}
+                    <DayJS format="DD-MM-YYYY, HH:mm:ss" className="d-block">{Parser(event.fields.date_start)}</DayJS>
+                    <DayJS format="DD-MM-YYYY, HH:mm:ss" className="d-block">{Parser(event.fields.date_end)}</DayJS>
                   </Card.Text>
                   <Card.Text>{Parser(event.fields.lead_text)}</Card.Text>
                   <Button variant="outline-danger">

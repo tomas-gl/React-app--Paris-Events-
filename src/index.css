@@ -12,6 +12,16 @@ code {
     monospace;
 }
 
+.event-link{
+  text-decoration: none !important;
+  color: #000000 !important;
+  transition: 0.5s;
+}
+
+.event-link:hover{
+  color:#024dbe !important;
+}
+
 .nav-link {
   padding: 30px;
   color: #ffffff;
@@ -23,6 +33,7 @@ code {
 
 .card {
   box-shadow: 0 2px 3px rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 10%);
+  
 }
 
 .event-header {

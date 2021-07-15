@@ -9,6 +9,7 @@ import axios from "axios";
 import { Card, Button, Row, Col, Spinner, Form } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
 import Parser from 'html-react-parser';
+import DayJS from "react-dayjs";
 
 const Recherche = () => {
   let search = "";
@@ -57,6 +58,7 @@ const Recherche = () => {
                   to={{
                     pathname: `/event/${records.record.id}`,
                   }}
+                  className="event-link"
                 >
                   <Card>
                     <Card.Img
@@ -66,8 +68,8 @@ const Recherche = () => {
                     <Card.Body>
                       <Card.Title>{Parser(records.record.fields.title)}</Card.Title>
                       <Card.Text>
-                        {Parser(records.record.fields.date_start)}{" "}
-                        {Parser(records.record.fields.date_end)}
+                        <DayJS format="DD-MM-YYYY, HH:mm:ss" className="d-block">{Parser(records.record.fields.date_start)}</DayJS>
+                        <DayJS format="DD-MM-YYYY, HH:mm:ss" className="d-block">{Parser(records.record.fields.date_end)}</DayJS>
                       </Card.Text>
                       <Card.Text>{Parser(records.record.fields.lead_text)}</Card.Text>
                       <Button variant="outline-danger">
