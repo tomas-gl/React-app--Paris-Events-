@@ -5,6 +5,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Card, Button, Row, Col, Spinner, Image } from "react-bootstrap";
 import { FaHeart, FaPhone, FaFacebook } from "react-icons/fa/";
+import Parser from 'html-react-parser';
+
 
 function Event() {
   const { id } = useParams();
@@ -34,8 +36,8 @@ function Event() {
                 backgroundImage: 'url("' + eventDetails.cover_url + '"',
               }}
             ></div>
-            <p>{eventDetails.lead_text}</p>
-            <p>{eventDetails.description}</p>
+            <p>{Parser(eventDetails.lead_text)}</p>
+            <p>{Parser(eventDetails.description)}</p>
           </Col>
           <Col lg={4} xs={12} className="mt-3 p-4 right-block text-left">
             <Button className="d-block mb-4" variant="outline-danger">
@@ -44,19 +46,19 @@ function Event() {
             <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
               Dates :
             </span>
-            <p>{eventDetails.date_description}</p>
+            <p>{Parser(eventDetails.date_description)}</p>
             <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
               S'y rendre :
             </span>
             <p>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-                {eventDetails.address_name}
+              {Parser(eventDetails.address_name)}
               </span>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-                {eventDetails.address_street}
+              {Parser(eventDetails.address_street)}
               </span>
               <span className="d-block " style={{ fontStyle: "italic" }}>
-                {eventDetails.address_zipcode}
+              {Parser(eventDetails.address_zipcode)}
               </span>
             </p>
             <span style={{ fontSize: "1.25rem", fontWeight: "bold" }}>
@@ -64,7 +66,7 @@ function Event() {
             </span>
             <p>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-                {eventDetails.transport}
+              {Parser(eventDetails.transport)}
               </span>
             </p>
             <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
+import Parser from 'html-react-parser';
 
 const Accueil = ({ event }) => {
   if (event) {
@@ -34,11 +35,11 @@ const Accueil = ({ event }) => {
               <Card>
                 <Card.Img variant="top" src={event.fields.cover_url} />
                 <Card.Body>
-                  <Card.Title>{event.fields.title}</Card.Title>
+                  <Card.Title>{Parser(event.fields.title)}</Card.Title>
                   <Card.Text>
-                    {event.fields.date_start} {event.fields.date_end}
+                  {Parser(event.fields.date_start)}
                   </Card.Text>
-                  <Card.Text>{event.fields.lead_text}</Card.Text>
+                  <Card.Text>{Parser(event.fields.lead_text)}</Card.Text>
                   <Button variant="outline-danger">
                     <FaHeart /> Sauvegarder
                   </Button>

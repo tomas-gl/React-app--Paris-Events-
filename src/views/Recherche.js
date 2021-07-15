@@ -8,6 +8,7 @@ import axios from "axios";
 
 import { Card, Button, Row, Col, Spinner, Form } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
+import Parser from 'html-react-parser';
 
 const Recherche = () => {
   let search = "";
@@ -24,7 +25,9 @@ const Recherche = () => {
     axios.get(url).then((response) => {
       setRecords(response.data);
     });
+    console.log(records);
   }
+  console.log(records);
 
   return (
     <>
@@ -32,7 +35,7 @@ const Recherche = () => {
         <Col xs={12}>
           <h1>Lister de futurs événements à Paris</h1>
 
-          <Form className="text-start" onSubmit={onValidateForm}>
+          <Form className="text-start mb-3" onSubmit={onValidateForm}>
             <Form.Group className="mb-3" controlId="formRecherche">
               <Form.Control
                 type="text"
@@ -47,7 +50,7 @@ const Recherche = () => {
         </Col>
         {records && (
           <>
-            <h2>Résultats</h2>
+            <h2 className="text-start">Résultats de la recherche</h2>
             {records.records.map((records, index) => (
               <Col key={index} lg={3} md={6} xs={12} className="mt-3">
                 <Link
@@ -61,12 +64,12 @@ const Recherche = () => {
                       src={records.record.fields.cover_url}
                     />
                     <Card.Body>
-                      <Card.Title>{records.record.fields.title}</Card.Title>
+                      <Card.Title>{Parser(records.record.fields.title)}</Card.Title>
                       <Card.Text>
-                        {records.record.fields.date_start}{" "}
-                        {records.record.fields.date_end}
+                        {Parser(records.record.fields.date_start)}{" "}
+                        {Parser(records.record.fields.date_end)}
                       </Card.Text>
-                      <Card.Text>{records.record.fields.lead_text}</Card.Text>
+                      <Card.Text>{Parser(records.record.fields.lead_text)}</Card.Text>
                       <Button variant="outline-danger">
                         <FaHeart /> Sauvegarder
                       </Button>
@@ -77,6 +80,11 @@ const Recherche = () => {
             ))}
           </>
         )}
+        {
+          <span className="text-start" style={{ fontStyle: "italic" }}>
+            aucun résultat...
+          </span>
+        }
       </Row>
     </>
   );
