@@ -23,7 +23,7 @@ import { Container } from "react-bootstrap";
 
 function App() {
   const url =
-    "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?search=danse&sort=title&?sort=-date_start&rows=15";
+    "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?sort=-date_start&rows=15";
   const [event, setEvent] = useState(null);
   let eventRecent;
   let events;
@@ -81,9 +81,9 @@ function App() {
           <Route path="/event/:id" component={Event} exact />
 
           {/* Recherche */}
-          <Route path="/recherche" component={Recherche} exact>
-            <Recherche event={events}></Recherche>
-          </Route>
+          <Route path="/recherche" component={Recherche} exact />
+          {/* <Recherche event={events}></Recherche> */}
+          {/* </Route> */}
 
           {/* Favoris */}
           <Route path="/favoris" component={Favoris} exact />

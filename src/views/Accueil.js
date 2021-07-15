@@ -20,7 +20,7 @@ const Accueil = ({ event }) => {
               événements Parisiens
             </p>
             <hr />
-            <div className="text-left">
+            <div className="text-start">
               <h2>Actualité</h2>
               <p>Le dernier événement publié :</p>
             </div>
