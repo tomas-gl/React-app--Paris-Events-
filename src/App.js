@@ -78,7 +78,7 @@ function App() {
           </Route>
 
           {/* Event */}
-          <Route path="/event/:id" component={Event} exact/>
+          <Route path="/event/:id" component={Event} exact />
 
           {/* Recherche */}
           <Route path="/recherche" component={Recherche} exact>

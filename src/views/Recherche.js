@@ -1,5 +1,7 @@
-import { recordExpression } from "@babel/types";
 import { useRef, useState } from "react";
+
+// Router-dom import
+import { Link } from "react-router-dom";
 
 import { Card, Button, Row, Col, Spinner, Form } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
@@ -10,7 +12,7 @@ const Recherche = ({ event }) => {
   }
 
   const inputRef = useRef();
-  const [record, setRecords] = useState(null);
+  // const [records, setRecords] = useState(null);
 
   function onValidateForm(event) {
     event.preventDefault();
@@ -43,36 +45,38 @@ const Recherche = ({ event }) => {
             </Button>
           </Form>
         </Col>
-        {/* {record && (
+        {event && (
           <>
             <h2>Résultats</h2>
-            {recordExpression.map((record) => (
-              <p>{record.fields.title}</p>
+            {event.map((event, index) => (
+              <Col key={index} lg={3} md={6} xs={12} className="mt-3">
+                <Link
+                  to={{
+                    pathname: `/event/${event.record.id}`,
+                  }}
+                >
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src={event.record.fields.cover_url}
+                    />
+                    <Card.Body>
+                      <Card.Title>{event.record.fields.title}</Card.Title>
+                      <Card.Text>
+                        {event.record.fields.date_start}{" "}
+                        {event.record.fields.date_end}
+                      </Card.Text>
+                      <Card.Text>{event.record.fields.lead_text}</Card.Text>
+                      <Button variant="outline-danger">
+                        <FaHeart /> Sauvegarder
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
             ))}
           </>
-        )} */}
-        {/* <Col lg={3} md={6} xs={12} className="mt-3">
-          <Link
-            to={{
-              pathname: `/event/${event.id}`,
-              state: { eventRecent: event },
-            }}
-          >
-            <Card>
-              <Card.Img variant="top" src={event.fields.cover_url} />
-              <Card.Body>
-                <Card.Title>{event.fields.title}</Card.Title>
-                <Card.Text>
-                  {event.fields.date_start} {event.fields.date_end}
-                </Card.Text>
-                <Card.Text>{event.fields.lead_text}</Card.Text>
-                <Button variant="outline-danger">
-                  <FaHeart /> Sauvegarder
-                </Button>
-              </Card.Body>
-            </Card>
-          </Link>
-        </Col> */}
+        )}
       </Row>
     </>
   );
