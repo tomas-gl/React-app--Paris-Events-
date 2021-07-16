@@ -25,13 +25,14 @@ function App() {
   const [event, setEvent] = useState(null);
   const [favorites, setFavorites] = useLocalStorageState("favorites", []);
 
+  //Fonction d'ajout en favoris
   function onAddFavorites(id, e) {
     e.preventDefault();
     setFavorites([...favorites, id]);
     setEvent("");
   }
 
-  //Fonction d'ajout en favoris
+  //Fonction de retrait des favoris
   function onRemoveFavorites(id, e) {
     e.preventDefault();
     const newFavorites = favorites.filter((index) => index !== id);
@@ -39,7 +40,7 @@ function App() {
     setEvent("");
   }
 
-  //Fonction de retrait des favoris
+  //Fonction de vérification d'événement dans la liste de favoris
   function isFavorited(id) {
     if (favorites.includes(id)) {
       return true;
