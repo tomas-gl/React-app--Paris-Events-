@@ -47,7 +47,7 @@ function App() {
       return false;
     }
   }
-  localStorage.clear();
+  // localStorage.clear();
 
   return (
     <BrowserRouter>
