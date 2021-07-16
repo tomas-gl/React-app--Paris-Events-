@@ -5,8 +5,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Card, Button, Row, Col, Spinner, Image } from "react-bootstrap";
 import { FaHeart, FaPhone, FaFacebook } from "react-icons/fa/";
-import Parser from 'html-react-parser';
-
+import Parser from "html-react-parser";
 
 function Event() {
   const { id } = useParams();
@@ -52,13 +51,13 @@ function Event() {
             </span>
             <p>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-              {Parser(eventDetails.address_name)}
+                {Parser(eventDetails.address_name)}
               </span>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-              {Parser(eventDetails.address_street)}
+                {Parser(eventDetails.address_street)}
               </span>
               <span className="d-block " style={{ fontStyle: "italic" }}>
-              {Parser(eventDetails.address_zipcode)}
+                {Parser(eventDetails.address_zipcode)}
               </span>
             </p>
             <span style={{ fontSize: "1.25rem", fontWeight: "bold" }}>
@@ -66,7 +65,7 @@ function Event() {
             </span>
             <p>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-              {Parser(eventDetails.transport)}
+                {Parser(eventDetails.transport)}
               </span>
             </p>
             <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
@@ -83,9 +82,7 @@ function Event() {
               {eventDetails.contact_facebook ? (
                 <span className="d-block">
                   <FaFacebook /> :{" "}
-                  <a href={eventDetails.contact_facebook}>
-                    Page Facebook
-                  </a>
+                  <a href={eventDetails.contact_facebook}>Page Facebook</a>
                 </span>
               ) : (
                 ""

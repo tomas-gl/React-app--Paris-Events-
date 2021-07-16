@@ -8,10 +8,10 @@ import axios from "axios";
 
 import { Card, Button, Row, Col, Spinner, Form } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
-import Parser from 'html-react-parser';
+import Parser from "html-react-parser";
 import DayJS from "react-dayjs";
 
-const Recherche = () => {
+const Recherche = ({ id, favorites, onAddFavorites, onRemoveFavorites }) => {
   let search = "";
   let url;
   const inputRef = useRef();
@@ -26,9 +26,9 @@ const Recherche = () => {
     axios.get(url).then((response) => {
       setRecords(response.data);
     });
-    console.log(records);
   }
-  console.log(records);
+
+  console.log(favorites);
 
   return (
     <>
@@ -66,14 +66,37 @@ const Recherche = () => {
                       src={records.record.fields.cover_url}
                     />
                     <Card.Body>
-                      <Card.Title>{Parser(records.record.fields.title)}</Card.Title>
+                      <Card.Title>
+                        {Parser(records.record.fields.title)}
+                      </Card.Title>
                       <Card.Text>
-                        <DayJS format="DD-MM-YYYY, HH:mm:ss" className="d-block">{Parser(records.record.fields.date_start)}</DayJS>
-                        <DayJS format="DD-MM-YYYY, HH:mm:ss" className="d-block">{Parser(records.record.fields.date_end)}</DayJS>
+                        <DayJS
+                          format="DD-MM-YYYY, HH:mm:ss"
+                          className="d-block"
+                        >
+                          {Parser(records.record.fields.date_start)}
+                        </DayJS>
+                        <DayJS
+                          format="DD-MM-YYYY, HH:mm:ss"
+                          className="d-block"
+                        >
+                          {Parser(records.record.fields.date_end)}
+                        </DayJS>
                       </Card.Text>
-                      <Card.Text>{Parser(records.record.fields.lead_text)}</Card.Text>
-                      <Button variant="outline-danger">
-                        <FaHeart /> Sauvegarder
+                      <Card.Text>
+                        {Parser(records.record.fields.lead_text)}
+                      </Card.Text>
+                      <Button
+                        variant="outline-danger"
+                        onClick={(e) => onAddFavorites(records, e)}
+                      >
+                        <FaHeart variant="outline-danger" /> Sauvegarder
+                      </Button>
+                      <Button
+                        variant="danger"
+                        onClick={(e) => onRemoveFavorites(records, e)}
+                      >
+                        <FaHeart /> Retirer
                       </Button>
                     </Card.Body>
                   </Card>
