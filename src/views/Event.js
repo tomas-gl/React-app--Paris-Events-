@@ -7,7 +7,12 @@ import { Card, Button, Row, Col, Spinner, Image } from "react-bootstrap";
 import { FaHeart, FaPhone, FaFacebook } from "react-icons/fa/";
 import Parser from "html-react-parser";
 
-function Event() {
+const Event = ({
+  favorites,
+  onAddFavorites,
+  onRemoveFavorites,
+  isFavorited,
+}) => {
   const { id } = useParams();
   const url = `https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/${id}`;
   const [event, setEvent] = useState(null);
@@ -20,7 +25,7 @@ function Event() {
     });
   }, [url]);
   if (event) {
-    eventDetails = event.record.fields;
+    eventDetails = event.record;
     console.log(eventDetails);
   }
 
@@ -32,32 +37,51 @@ function Event() {
             <div
               className="event-header"
               style={{
-                backgroundImage: 'url("' + eventDetails.cover_url + '"',
+                backgroundImage: 'url("' + eventDetails.fields.cover_url + '"',
               }}
             ></div>
-            <p>{Parser(eventDetails.lead_text)}</p>
-            <p>{Parser(eventDetails.description)}</p>
+            <p>{Parser(eventDetails.fields.lead_text)}</p>
+            <p>{Parser(eventDetails.fields.description)}</p>
           </Col>
           <Col lg={4} xs={12} className="mt-3 p-4 right-block text-left">
-            <Button className="d-block mb-4" variant="outline-danger">
-              <FaHeart /> Sauvegarder
-            </Button>
+            {!isFavorited(eventDetails) ? (
+              <Button
+                className="d-block"
+                variant="outline-danger"
+                onClick={(e) => onAddFavorites(eventDetails, e)}
+              >
+                <FaHeart variant="outline-danger" /> Ajouter
+              </Button>
+            ) : (
+              <></>
+            )}
+            {isFavorited(eventDetails) ? (
+              <Button
+                className="d-block"
+                variant="danger"
+                onClick={(e) => onRemoveFavorites(eventDetails, e)}
+              >
+                <FaHeart /> Retirer
+              </Button>
+            ) : (
+              <></>
+            )}
             <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
               Dates :
             </span>
-            <p>{Parser(eventDetails.date_description)}</p>
+            <p>{Parser(eventDetails.fields.date_description)}</p>
             <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
               S'y rendre :
             </span>
             <p>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-                {Parser(eventDetails.address_name)}
+                {Parser(eventDetails.fields.address_name)}
               </span>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-                {Parser(eventDetails.address_street)}
+                {Parser(eventDetails.fields.address_street)}
               </span>
               <span className="d-block " style={{ fontStyle: "italic" }}>
-                {Parser(eventDetails.address_zipcode)}
+                {Parser(eventDetails.fields.address_zipcode)}
               </span>
             </p>
             <span style={{ fontSize: "1.25rem", fontWeight: "bold" }}>
@@ -65,7 +89,7 @@ function Event() {
             </span>
             <p>
               <span className="d-block" style={{ fontStyle: "italic" }}>
-                {Parser(eventDetails.transport)}
+                {Parser(eventDetails.fields.transport)}
               </span>
             </p>
             <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
@@ -74,15 +98,15 @@ function Event() {
             <p>
               {event.record.fields.contact_phone ? (
                 <span className="d-block">
-                  <FaPhone /> : {eventDetails.contact_phone}
+                  <FaPhone /> : {eventDetails.fields.contact_phone}
                 </span>
               ) : (
                 ""
               )}
-              {eventDetails.contact_facebook ? (
+              {eventDetails.fields.contact_facebook ? (
                 <span className="d-block">
                   <FaFacebook /> :{" "}
-                  <a href={eventDetails.contact_facebook}>Page Facebook</a>
+                  <a href={eventDetails.fields.contact_facebook}>Page Facebook</a>
                 </span>
               ) : (
                 ""
@@ -95,6 +119,6 @@ function Event() {
   }
 
   return <Spinner animation="border" role="status"></Spinner>;
-}
+};
 
 export default Event;

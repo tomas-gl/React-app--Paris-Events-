@@ -1,3 +1,12 @@
+// React import
+import { useState, useEffect } from "react";
+
+// LocalStorage import
+import useLocalStorageState from "use-local-storage-state";
+
+// Axios import
+import axios from "axios";
+
 // Router-dom import
 import { Link } from "react-router-dom";
 
@@ -6,9 +15,29 @@ import { FaHeart, FaRegHeart } from "react-icons/fa/";
 import Parser from "html-react-parser";
 import DayJS from "react-dayjs";
 
-const Accueil = ({ event }) => {
+const Accueil = ({
+  favorites,
+  onAddFavorites,
+  onRemoveFavorites,
+  isFavorited,
+}) => {
+  const url =
+    "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?sort=-date_start&rows=15";
+  const [event, setEvent] = useState(null);
+  let eventRecent;
+
+  // Récupération des données
+  useEffect(() => {
+    let isMounted = true;
+    axios.get(url).then((response) => {
+      if (isMounted) setEvent(response.data);
+    });
+    return () => {
+      isMounted = false;
+    };
+  });
   if (event) {
-    console.log(event);
+    eventRecent = event.records[0].record;
   }
 
   if (event) {
@@ -30,29 +59,43 @@ const Accueil = ({ event }) => {
           <Col lg={3} md={6} xs={12} className="mt-3">
             <Link
               to={{
-                pathname: `/event/${event.id}`,
+                pathname: `/event/${eventRecent.id}`,
               }}
               className="event-link"
             >
               <Card>
-                <Card.Img variant="top" src={event.fields.cover_url} />
+                <Card.Img variant="top" src={eventRecent.fields.cover_url} />
                 <Card.Body>
-                  <Card.Title>{Parser(event.fields.title)}</Card.Title>
+                  <Card.Title>{Parser(eventRecent.fields.title)}</Card.Title>
                   <Card.Text>
                     <DayJS format="DD-MM-YYYY, HH:mm:ss" className="d-block">
-                      {Parser(event.fields.date_start)}
+                      {Parser(eventRecent.fields.date_start)}
                     </DayJS>
                     <DayJS format="DD-MM-YYYY, HH:mm:ss" className="d-block">
-                      {Parser(event.fields.date_end)}
+                      {Parser(eventRecent.fields.date_end)}
                     </DayJS>
                   </Card.Text>
-                  <Card.Text>{Parser(event.fields.lead_text)}</Card.Text>
-                  <Button variant="outline-danger">
-                    <FaRegHeart /> Sauvegarder
-                  </Button>
-                  <Button variant="danger">
-                    <FaHeart /> Retirer
-                  </Button>
+                  <Card.Text>{Parser(eventRecent.fields.lead_text)}</Card.Text>
+                  {!isFavorited(eventRecent) ? (
+                    <Button
+                      variant="outline-danger"
+                      onClick={(e) => onAddFavorites(eventRecent, e)}
+                    >
+                      <FaHeart variant="outline-danger" /> Ajouter
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
+                  {isFavorited(eventRecent) ? (
+                    <Button
+                      variant="danger"
+                      onClick={(e) => onRemoveFavorites(eventRecent, e)}
+                    >
+                      <FaHeart /> Retirer
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
                 </Card.Body>
               </Card>
             </Link>

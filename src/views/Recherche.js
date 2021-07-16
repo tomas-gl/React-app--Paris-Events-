@@ -11,7 +11,12 @@ import { FaHeart } from "react-icons/fa/";
 import Parser from "html-react-parser";
 import DayJS from "react-dayjs";
 
-const Recherche = ({ id, favorites, onAddFavorites, onRemoveFavorites }) => {
+const Recherche = ({
+  favorites,
+  onAddFavorites,
+  onRemoveFavorites,
+  isFavorited,
+}) => {
   let search = "";
   let url;
   const inputRef = useRef();
@@ -27,8 +32,6 @@ const Recherche = ({ id, favorites, onAddFavorites, onRemoveFavorites }) => {
       setRecords(response.data);
     });
   }
-
-  console.log(favorites);
 
   return (
     <>
@@ -86,18 +89,26 @@ const Recherche = ({ id, favorites, onAddFavorites, onRemoveFavorites }) => {
                       <Card.Text>
                         {Parser(records.record.fields.lead_text)}
                       </Card.Text>
-                      <Button
-                        variant="outline-danger"
-                        onClick={(e) => onAddFavorites(records, e)}
-                      >
-                        <FaHeart variant="outline-danger" /> Sauvegarder
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={(e) => onRemoveFavorites(records, e)}
-                      >
-                        <FaHeart /> Retirer
-                      </Button>
+                      {!isFavorited(records.record) ? (
+                        <Button
+                          variant="outline-danger"
+                          onClick={(e) => onAddFavorites(records.record, e)}
+                        >
+                          <FaHeart variant="outline-danger" /> Ajouter
+                        </Button>
+                      ) : (
+                        <></>
+                      )}
+                      {isFavorited(records.record) ? (
+                        <Button
+                          variant="danger"
+                          onClick={(e) => onRemoveFavorites(records.record, e)}
+                        >
+                          <FaHeart /> Retirer
+                        </Button>
+                      ) : (
+                        <></>
+                      )}
                     </Card.Body>
                   </Card>
                 </Link>

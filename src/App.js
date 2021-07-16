@@ -23,46 +23,33 @@ import Event from "./views/Event";
 import "bootstrap/dist/css/bootstrap.css";
 import { Navbar } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { FaCcVisa } from "react-icons/fa";
 
 function App() {
-  const url =
-    "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?sort=-date_start&rows=15";
   const [event, setEvent] = useState(null);
   const [favorites, setFavorites] = useLocalStorageState("favorites", []);
-  // const [favorite, setFavorite] = useState("");
-  let eventRecent;
-  // let events;
-
-  // Récupération des données
-  useEffect(() => {
-    axios.get(url).then((response) => {
-      setEvent(response.data);
-    });
-  }, [url]);
-  if (event) {
-    eventRecent = event.records[0].record;
-    // events = event.records;
-  }
-  // console.log(favorites);
-  // useEffect(() => {
-  //   setFavorites(["eat", "drink"]);
-  // }, []);
+  const [favorited, setFavorited] = useState(null);
 
   function onAddFavorites(id, e) {
     e.preventDefault();
     setFavorites([...favorites, id]);
     setEvent("");
-    console.log("event ajouté : " + id.record.id);
+    console.log("Ajout dans la liste des favoris :", favorites);
   }
 
   function onRemoveFavorites(id, e) {
     e.preventDefault();
     const newFavorites = favorites.filter((index) => index !== id);
     setFavorites(newFavorites);
-    console.log(newFavorites);
     setEvent("");
-    console.log("event retiré : " + id.record.id);
+    console.log("Retrait de la liste des favoris :", favorites);
+  }
+
+  function isFavorited(id) {
+    if (favorites.includes(id)) {
+      return true;
+    } else {
+      return false;
+    }
   }
   // localStorage.clear();
 
@@ -101,23 +88,44 @@ function App() {
 
           {/* Accueil */}
           <Route path="/" component={Accueil} exact>
-            <Accueil event={eventRecent}></Accueil>
+            <Accueil
+              // event={eventRecent}
+              favorites={favorites}
+              isFavorited={isFavorited}
+              onAddFavorites={onAddFavorites}
+              onRemoveFavorites={onRemoveFavorites}
+            ></Accueil>
           </Route>
 
           {/* Event */}
-          <Route path="/event/:id" component={Event} exact />
+          <Route path="/event/:id" component={Event} exact>
+            <Event
+              favorites={favorites}
+              isFavorited={isFavorited}
+              onAddFavorites={onAddFavorites}
+              onRemoveFavorites={onRemoveFavorites}
+            ></Event>
+          </Route>
 
           {/* Recherche */}
           <Route path="/recherche" component={Recherche} exact>
             <Recherche
               favorites={favorites}
+              isFavorited={isFavorited}
               onAddFavorites={onAddFavorites}
               onRemoveFavorites={onRemoveFavorites}
             ></Recherche>
           </Route>
 
           {/* Favoris */}
-          <Route path="/favoris" component={Favoris} exact />
+          <Route path="/favoris" component={Favoris} exact>
+            <Favoris
+              favorites={favorites}
+              isFavorited={isFavorited}
+              onAddFavorites={onAddFavorites}
+              onRemoveFavorites={onRemoveFavorites}
+            ></Favoris>
+          </Route>
         </Container>
       </div>
     </BrowserRouter>
