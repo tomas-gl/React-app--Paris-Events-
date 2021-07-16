@@ -1,24 +1,26 @@
-// React import
+// React imports
 import { useState, useEffect } from "react";
 
+// Axios imports
 import axios from "axios";
+
 import { useParams } from "react-router-dom";
-import { Card, Button, Row, Col, Spinner, Image } from "react-bootstrap";
+
+// Bootstrap/Icons imports
+import { Button, Row, Col, Spinner } from "react-bootstrap";
 import { FaHeart, FaPhone, FaFacebook } from "react-icons/fa/";
+
+//Data formatting imports
 import Parser from "html-react-parser";
 
-const Event = ({
-  favorites,
-  onAddFavorites,
-  onRemoveFavorites,
-  isFavorited,
-}) => {
+const Event = ({ onAddFavorites, onRemoveFavorites, isFavorited }) => {
   const { id } = useParams();
   const url = `https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/${id}`;
   const [event, setEvent] = useState(null);
 
   let eventDetails = null;
 
+  // Récupération des données
   useEffect(() => {
     axios.get(url).then((response) => {
       setEvent(response.data);
@@ -106,7 +108,9 @@ const Event = ({
               {eventDetails.fields.contact_facebook ? (
                 <span className="d-block">
                   <FaFacebook /> :{" "}
-                  <a href={eventDetails.fields.contact_facebook}>Page Facebook</a>
+                  <a href={eventDetails.fields.contact_facebook}>
+                    Page Facebook
+                  </a>
                 </span>
               ) : (
                 ""

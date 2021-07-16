@@ -1,13 +1,11 @@
-import { useRef, useState, useEffect } from "react";
-
 // Router-dom import
 import { Link } from "react-router-dom";
 
-// Axios import
-import axios from "axios";
-
-import { Card, Button, Row, Col, Spinner, Form } from "react-bootstrap";
+// Bootstrap/Icons imports
+import { Card, Button, Row, Col } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
+
+//Data formatting imports
 import Parser from "html-react-parser";
 import DayJS from "react-dayjs";
 
@@ -17,6 +15,8 @@ const Favoris = ({
   onRemoveFavorites,
   isFavorited,
 }) => {
+  console.log("Liste des événements favoris:", favorites);
+
   if (favorites.length > 0) {
     return (
       <>

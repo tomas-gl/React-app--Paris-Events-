@@ -1,26 +1,21 @@
-// React import
+// React imports
 import { useState, useEffect } from "react";
 
-// LocalStorage import
-import useLocalStorageState from "use-local-storage-state";
-
-// Axios import
+// Axios imports
 import axios from "axios";
 
-// Router-dom import
+// Router-dom imports
 import { Link } from "react-router-dom";
 
+// Bootstrap/Icons imports
 import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
-import { FaHeart, FaRegHeart } from "react-icons/fa/";
+import { FaHeart } from "react-icons/fa/";
+
+//Data formatting imports
 import Parser from "html-react-parser";
 import DayJS from "react-dayjs";
 
-const Accueil = ({
-  favorites,
-  onAddFavorites,
-  onRemoveFavorites,
-  isFavorited,
-}) => {
+const Accueil = ({ onAddFavorites, onRemoveFavorites, isFavorited }) => {
   const url =
     "https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/?sort=-date_start&rows=15";
   const [event, setEvent] = useState(null);
@@ -59,7 +54,7 @@ const Accueil = ({
           <Col lg={3} md={6} xs={12} className="mt-3">
             <Link
               to={{
-                pathname: `/event/${eventRecent.id}`,
+                pathname: `/event/${event.id}`,
               }}
               className="event-link"
             >

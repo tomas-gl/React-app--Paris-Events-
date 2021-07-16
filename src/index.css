@@ -12,14 +12,14 @@ code {
     monospace;
 }
 
-.event-link{
+.event-link {
   text-decoration: none !important;
   color: #000000 !important;
   transition: 0.5s;
 }
 
-.event-link:hover{
-  color:#024dbe !important;
+.event-link:hover {
+  color: #024dbe !important;
 }
 
 .nav-link {
@@ -48,8 +48,8 @@ code {
   margin-bottom: 2rem;
 }
 
-.right-block{
-  background-color: #f5f5f5!important;
+.right-block {
+  background-color: #f5f5f5 !important;
   border-radius: 6px;
   box-shadow: 0 2px 3px rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 10%);
   color: #4a4a4a;

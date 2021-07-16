@@ -1,13 +1,16 @@
-import { useRef, useState, useEffect } from "react";
+// React imports
+import { useRef, useState } from "react";
 
-// Router-dom import
+// Router-dom imports
 import { Link } from "react-router-dom";
 
-// Axios import
+// Axios imports
 import axios from "axios";
 
-import { Card, Button, Row, Col, Spinner, Form } from "react-bootstrap";
+import { Card, Button, Row, Col, Form } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa/";
+
+//Data formatting imports
 import Parser from "html-react-parser";
 import DayJS from "react-dayjs";
 
@@ -32,6 +35,8 @@ const Recherche = ({
       setRecords(response.data);
     });
   }
+
+  console.log("Liste des événements favoris:", favorites);
 
   return (
     <>
