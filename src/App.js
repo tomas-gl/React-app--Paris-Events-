@@ -5,7 +5,13 @@ import { useState } from "react";
 import "./App.css";
 
 // Router-dom imports
-import { BrowserRouter, Route, NavLink } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  NavLink,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 // LocalStorage imports
 import useLocalStorageState from "use-local-storage-state";
@@ -84,42 +90,45 @@ function App() {
           </header>
 
           {/* Accueil */}
-          <Route path="/" component={Accueil} exact>
-            <Accueil
-              isFavorited={isFavorited}
-              onAddFavorites={onAddFavorites}
-              onRemoveFavorites={onRemoveFavorites}
-            ></Accueil>
-          </Route>
+          <Switch>
+            <Route path="/" component={Accueil} exact>
+              <Accueil
+                isFavorited={isFavorited}
+                onAddFavorites={onAddFavorites}
+                onRemoveFavorites={onRemoveFavorites}
+              ></Accueil>
+            </Route>
 
-          {/* Event */}
-          <Route path="/event/:id" component={Event} exact>
-            <Event
-              isFavorited={isFavorited}
-              onAddFavorites={onAddFavorites}
-              onRemoveFavorites={onRemoveFavorites}
-            ></Event>
-          </Route>
+            {/* Event */}
+            <Route path="/event/:id" component={Event} exact>
+              <Event
+                isFavorited={isFavorited}
+                onAddFavorites={onAddFavorites}
+                onRemoveFavorites={onRemoveFavorites}
+              ></Event>
+            </Route>
 
-          {/* Recherche */}
-          <Route path="/recherche" component={Recherche} exact>
-            <Recherche
-              favorites={favorites}
-              isFavorited={isFavorited}
-              onAddFavorites={onAddFavorites}
-              onRemoveFavorites={onRemoveFavorites}
-            ></Recherche>
-          </Route>
+            {/* Recherche */}
+            <Route path="/recherche" component={Recherche} exact>
+              <Recherche
+                favorites={favorites}
+                isFavorited={isFavorited}
+                onAddFavorites={onAddFavorites}
+                onRemoveFavorites={onRemoveFavorites}
+              ></Recherche>
+            </Route>
 
-          {/* Favoris */}
-          <Route path="/favoris" component={Favoris} exact>
-            <Favoris
-              favorites={favorites}
-              isFavorited={isFavorited}
-              onAddFavorites={onAddFavorites}
-              onRemoveFavorites={onRemoveFavorites}
-            ></Favoris>
-          </Route>
+            {/* Favoris */}
+            <Route path="/favoris" component={Favoris} exact>
+              <Favoris
+                favorites={favorites}
+                isFavorited={isFavorited}
+                onAddFavorites={onAddFavorites}
+                onRemoveFavorites={onRemoveFavorites}
+              ></Favoris>
+            </Route>
+            <Redirect to="/" />
+          </Switch>
         </Container>
       </div>
     </BrowserRouter>
