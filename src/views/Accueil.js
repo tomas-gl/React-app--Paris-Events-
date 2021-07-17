@@ -54,7 +54,7 @@ const Accueil = ({ onAddFavorites, onRemoveFavorites, isFavorited }) => {
           <Col lg={3} md={6} xs={12} className="mt-3">
             <Link
               to={{
-                pathname: `/event/${event.id}`,
+                pathname: `/event/${eventRecent.id}`,
               }}
               className="event-link"
             >
